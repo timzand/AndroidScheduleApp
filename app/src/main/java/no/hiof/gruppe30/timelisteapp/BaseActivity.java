@@ -1,5 +1,7 @@
 package no.hiof.gruppe30.timelisteapp;
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -43,6 +45,21 @@ public class BaseActivity extends AppCompatActivity {
 
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
+                        switch(menuItem.getItemId()) {
+                            case R.id.nav_dashboard:
+                                Intent intent = new Intent(BaseActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                return true;
+                            case R.id.nav_creategrp:
+                                //Endrer activity til opprett gruppe
+                                Intent intent2 = new Intent(BaseActivity.this, CreateGroupActivity.class);
+                                startActivity(intent2);
+                                return true;
+                            case R.id.nav_joingrp:
+                                //Endre activity til
+                        }
+
+
 
                         return true;
                     }

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "448144083293",
+    "firebase_url": "https://timelisteapp.firebaseio.com",
+    "project_id": "timelisteapp",
+    "storage_bucket": "timelisteapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448144083293:android:d29bc664c8a76399",
+        "android_client_info": {
+          "package_name": "no.hiof.gruppe30.timelisteapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448144083293-dedk43fc0e2301jgbmju640afjvh6ksa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf8S5xKD3EG7wu-LA80dyi720FJyBsN_A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
