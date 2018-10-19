@@ -42,11 +42,31 @@
         android:gravity="center"/>
 
     <Button
+        android:id="@+id/btn_pickImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Velg Gruppebilde"
+        app:layout_constraintTop_toBottomOf="@id/input_groupDescription"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/image_group"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"
+        app:layout_constraintTop_toBottomOf="@+id/btn_pickImage"
+        android:scaleType="centerCrop"/>
+
+    <Button
         android:id="@+id/btn_registerGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Opprett"
-        app:layout_constraintTop_toBottomOf="@id/input_groupDescription"
+        app:layout_constraintTop_toBottomOf="@+id/image_group"
         android:gravity="center"/>
+
+
+
 
 </android.support.constraint.ConstraintLayout>

@@ -22,6 +22,9 @@
         <activity android:name=".CreateGroupActivity">
 
         </activity>
+        <activity android:name=".GroupPageActivity">
+
+        </activity>
     </application>
 
 </manifest>
