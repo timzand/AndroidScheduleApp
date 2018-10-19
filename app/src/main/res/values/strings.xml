@@ -3,6 +3,6 @@
     <string name="drawerDashboard">Dashboard</string>
     <string name="drawerOpprettGruppe">Opprett Gruppe</string>
     <string name="drawerJoinGruppe">Bli med Gruppe</string>
-    <string name="drawer3">Meny3</string>
+    <string name="drawer3">Login</string>
     <string name="drawer4">Meny4</string>
 </resources>

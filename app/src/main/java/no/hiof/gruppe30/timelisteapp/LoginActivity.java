@@ -38,8 +38,8 @@ public class LoginActivity extends BaseActivity {
     //FireBase
     //FirebaseApp Fapp;
     private FirebaseAuth fAuth;
-    FirebaseDatabase database;
-    DatabaseReference users;
+   // FirebaseDatabase database;
+   // DatabaseReference users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class LoginActivity extends BaseActivity {
 
         fAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = fAuth.getCurrentUser();
-        username.setText(currentUser.getEmail());
+        //username.setText(currentUser.getEmail());
 
 
 
@@ -67,11 +67,11 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 progresss.setVisibility(view.VISIBLE);
-                loginn.setVisibility(view.INVISIBLE);
+                //loginn.setVisibility(view.INVISIBLE);
                 signIn(username.getText().toString(), password.getText().toString());
             }
         });
-
+/*
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +79,7 @@ public class LoginActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
+*/
 
 
     }
@@ -92,8 +92,9 @@ public class LoginActivity extends BaseActivity {
                     // Sign in success, update UI with the signed-in user's information
 
                     FirebaseUser user = fAuth.getCurrentUser();
-                    infoa.setText("Hello" + user.getEmail());
-
+                    infoa.setText("Hello " + user.getEmail());
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
 
                 } else {
                     // If sign in fails

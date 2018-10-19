@@ -57,6 +57,10 @@ public class BaseActivity extends AppCompatActivity {
                                 return true;
                             case R.id.nav_joingrp:
                                 //Endre activity til
+                            case R.id.nav_3:
+                                Intent intent3 = new Intent(BaseActivity.this, LoginActivity.class);
+                                startActivity(intent3);
+                                return true;
                         }
 
 
