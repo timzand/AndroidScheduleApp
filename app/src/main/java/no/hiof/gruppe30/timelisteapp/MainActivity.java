@@ -29,9 +29,9 @@ public class MainActivity extends BaseActivity {
         tt = findViewById(R.id.t);
         fAuth = FirebaseAuth.getInstance();
 
-        //user = fAuth.getCurrentUser();
-
-        //tt.setText("Welcome " + user.getEmail());
+        user = fAuth.getCurrentUser();
+        
+        tt.setText("Welcome " + user.getEmail());
 
     }
 }
