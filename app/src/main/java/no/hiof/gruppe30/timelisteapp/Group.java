@@ -6,6 +6,8 @@ public class Group {
     private String desc;
     private String image;
 
+
+
     public Group(String title, String desc) {
         this.title = title;
         this.desc = desc;

@@ -15,11 +15,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Date;
 
 import static android.widget.Toast.makeText;
 
@@ -31,7 +34,11 @@ public class CreateGroupActivity extends BaseActivity {
     private EditText inputGroupTitle;
     private EditText inputGroupDescription;
     private Bitmap selectedImage;
-
+    private String creator; // navn av skaper av gruppe
+    private Date creationDate;
+    private FirebaseDatabase fData;
+    private FirebaseAuth fAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +49,13 @@ public class CreateGroupActivity extends BaseActivity {
         View contentView = inflater.inflate(R.layout.activity_create_group, null, false);
         mDrawerLayout.addView(contentView, 0);
 
-        database = FirebaseDatabase.getInstance().getReference();
+
+        fAuth = FirebaseAuth.getInstance();
+        fData = FirebaseDatabase.getInstance();
+
+        database = fData.getReference();
+        user = fAuth.getCurrentUser();
+        creator = user.getEmail();
 
         inputGroupTitle = findViewById(R.id.input_groupTitle);
         inputGroupDescription = findViewById(R.id.input_groupDescription);
@@ -53,7 +66,7 @@ public class CreateGroupActivity extends BaseActivity {
             public void onClick(View view) {
                 String title = inputGroupTitle.getText().toString();
                 String description = inputGroupDescription.getText().toString();
-
+                creator =
                 Context context = getApplicationContext();
                 CharSequence text = "Gruppe opprettet";
                 int duration = Toast.LENGTH_SHORT;

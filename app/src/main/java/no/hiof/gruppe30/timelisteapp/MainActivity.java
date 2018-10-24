@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
         fAuth = FirebaseAuth.getInstance();
 
         user = fAuth.getCurrentUser();
-        
+
         tt.setText("Welcome " + user.getEmail());
 
     }
