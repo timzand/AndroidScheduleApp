@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -39,6 +43,9 @@ public class CreateGroupActivity extends BaseActivity {
     private FirebaseDatabase fData;
     private FirebaseAuth fAuth;
     FirebaseUser user;
+    private String userId;
+    String title;
+    String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +63,7 @@ public class CreateGroupActivity extends BaseActivity {
         database = fData.getReference();
         user = fAuth.getCurrentUser();
         creator = user.getEmail();
+        userId = user.getUid();
 
         inputGroupTitle = findViewById(R.id.input_groupTitle);
         inputGroupDescription = findViewById(R.id.input_groupDescription);
@@ -64,32 +72,45 @@ public class CreateGroupActivity extends BaseActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = inputGroupTitle.getText().toString();
-                String description = inputGroupDescription.getText().toString();
-                creator =
-                Context context = getApplicationContext();
-                CharSequence text = "Gruppe opprettet";
-                int duration = Toast.LENGTH_SHORT;
+                title = inputGroupTitle.getText().toString();
+                description = inputGroupDescription.getText().toString();
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-
+                Log.v("INFO", title + '\n' + description + '\n' + userId + '\n' + creator + '\n');
 
                 //Push ny gruppe til database
                 //Ha en sjekk at gruppetittel ikke eksisterer fra før av????
+                final DatabaseReference groupRef = database.child("groups");
+                groupRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        boolean exists = false;
+                        if(dataSnapshot.child(title).exists()){
+                            exists = true;
+                            Log.w("FIND", "CHILD EXISTS");
+                        }
 
+                        if(exists) {
+                            Toast.makeText(getApplicationContext(),"Gruppenavn er allerede i bruk",Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),"Gruppe opprettet",Toast.LENGTH_LONG).show();
+                            groupRef.child(title).child("description").setValue(description);
+                            groupRef.child(title).child("user").setValue(userId);
+                            database.child("members").child(userId).child(title).setValue(true);
+                            Intent intent = new Intent(getApplicationContext(), GroupPageActivity.class);
+                            intent.putExtra("title", title);
+                            intent.putExtra("desc", description);
+                            selectedImage = Bitmap.createScaledBitmap(selectedImage, 360, 150, true);
+                            intent.putExtra("groupImage", selectedImage);
+                            startActivity(intent);
+                        }
+                    }
 
-                Intent intent = new Intent(getApplicationContext(), GroupPageActivity.class);
-                intent.putExtra("title", title);
-                Log.d("create", "1");
-                intent.putExtra("desc", description);
-                Log.d("crea", "2");
-
-                selectedImage = Bitmap.createScaledBitmap(selectedImage, 360, 150, true);
-
-                intent.putExtra("groupImage", selectedImage);
-                Log.d("create", "3");
-                startActivity(intent);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(getApplicationContext(), "CreateGroup: Database Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -143,4 +164,5 @@ public class CreateGroupActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }

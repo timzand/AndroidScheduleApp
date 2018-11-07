@@ -27,11 +27,8 @@ public class GroupPageActivity extends BaseActivity {
         mDrawerLayout.addView(contentView, 0);
 
         title = findViewById(R.id.text_title);
-        Log.d("create", "1");
         image = findViewById(R.id.image);
-        Log.d("create", "2");
         description = findViewById(R.id.text_desc);
-        Log.d("create", "3");
 
         String bTitle = "default";
         String bDesc = "default";
