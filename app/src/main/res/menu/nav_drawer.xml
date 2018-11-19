@@ -23,7 +23,4 @@
             android:title="@string/drawer4" />
 
     </group>
-    <menu>
-
-    </menu>
 </menu>

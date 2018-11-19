@@ -32,6 +32,7 @@ public class BaseActivity extends AppCompatActivity {
     FirebaseUser user;
     private DatabaseReference database;
     ArrayList<String> groups;
+    int selectedSubMenu;
 
     //https://developer.android.com/training/implementing-navigation/nav-drawer
 
@@ -49,6 +50,8 @@ public class BaseActivity extends AppCompatActivity {
 
         database = fData.getReference();
         user = fAuth.getCurrentUser();
+
+        selectedSubMenu = -1;
 
         //Legger til toolbaren til activitien
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -71,6 +74,14 @@ public class BaseActivity extends AppCompatActivity {
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
 
+                        Log.v("INFO", ""+selectedSubMenu);
+                        if(selectedSubMenu != -1) {
+                            Intent intent = new Intent(BaseActivity.this, GroupPageActivity.class);
+                            intent.putExtra("gTitle", groups.get(menuItem.getItemId()));
+                            Log.v("INFO", ""+menuItem.getItemId());
+                            startActivity(intent);
+                            return true;
+                        }
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
                         switch(menuItem.getItemId()) {
@@ -91,36 +102,53 @@ public class BaseActivity extends AppCompatActivity {
                                 return true;
                         }
 
-
-
                         return true;
                     }
                 });
     }
 
     @Override
+    protected void onResume() {
+        selectedSubMenu = -1;
+        super.onResume();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
+
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        Menu m = navView.getMenu();
+        final SubMenu subMenu = m.addSubMenu("Grupper: ");
         Log.v("INFO", "Drawer options created");
         DatabaseReference membersRef = database.child("members");
-
         membersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int i = 0;
+                ArrayList<String> listo = new ArrayList<String>();
                 DataSnapshot thisUser = dataSnapshot.child(user.getUid());
                 for(DataSnapshot data: thisUser.getChildren()) {
                     Log.v("INFO", "datasnapshot " + data.getKey());
-                    groups.add(data.getKey());
+                    listo.add(data.getKey());
+                    subMenu.add(0, i, 0, data.getKey());
+                    i++;
                 }
+
+                selectedSubMenu = i;
+                groups = listo;
+
             }
 
             @Override
@@ -129,14 +157,7 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
 
-        SubMenu submenu = menu.addSubMenu("Grupper:");
-        int i = 0;
-        for (String s : groups) {
-            Log.v("INFO", "groupsArray: " + groups.get(i));
-            submenu.add(0, i, 0, groups.get(i)).setShortcut('5','Z');
-            i++;
-        }
-        submenu.add(0, 16, 0, "testSubItem").setShortcut('5','A');
+
 
         return super.onCreateOptionsMenu(menu);
     }

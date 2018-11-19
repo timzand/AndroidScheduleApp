@@ -31,6 +31,10 @@
         <activity android:name=".RegisterActivity">
 
         </activity>
+
+        <activity android:name=".GroupPageAdmin">
+
+        </activity>
     </application>
 
 </manifest>

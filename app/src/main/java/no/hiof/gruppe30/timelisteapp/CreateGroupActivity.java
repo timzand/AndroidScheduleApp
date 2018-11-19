@@ -47,6 +47,9 @@ public class CreateGroupActivity extends BaseActivity {
     String title;
     String description;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
