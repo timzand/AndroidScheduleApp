@@ -73,6 +73,11 @@ public class LoginActivity extends BaseActivity {
         });
 
 
+        if(fAuth.getCurrentUser() != null) {
+            infoa.setText("Hello " + fAuth.getCurrentUser().getEmail());
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
 
     }
 
