@@ -89,6 +89,10 @@ public class BaseActivity extends AppCompatActivity {
                                 Intent intent3 = new Intent(BaseActivity.this, LoginActivity.class);
                                 startActivity(intent3);
                                 return true;
+                            case R.id.nav_user:
+                                Intent intent4 = new Intent(BaseActivity.this, User.class);
+                                startActivity(intent4);
+                                return true;
                         }
 
 
