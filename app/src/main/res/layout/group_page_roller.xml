@@ -6,21 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_timeplan"
+    <TextView
+        android:id="@+id/text_addRole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Legg til timeplan"
+        android:text="Rollenavn: "
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="22sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <Button
-        android:id="@+id/btn_roles"
+    <EditText
+        android:id="@+id/edit_addRole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Legg til roller"
-        app:layout_constraintTop_toBottomOf="@+id/btn_timeplan"
+        android:text="Rolle"
+        app:layout_constraintTop_toBottomOf="@+id/text_addRole"
+        />
+    <Button
+        android:id="@+id/btn_addRole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Legg til rolle"
+        app:layout_constraintTop_toBottomOf="@+id/edit_addRole"
         />
 
 </android.support.constraint.ConstraintLayout>

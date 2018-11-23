@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,23 +17,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".BaseActivity">
 
         </activity>
         <activity android:name=".CreateGroupActivity">
 
         </activity>
+
         <activity android:name=".GroupPageActivity">
 
         </activity>
+
         <activity android:name=".MainActivity">
 
         </activity>
+
         <activity android:name=".RegisterActivity">
 
         </activity>
 
         <activity android:name=".User">
+
+        </activity>
+
+        <activity
+            android:name=".GroupPageAdmin"
+             >
+
+        </activity>
+
+        <activity
+            android:name=".GroupPageTimeplan"
+            >
+
+        </activity>
+
+        <activity
+            android:name=".GroupPageRoller"
+            >
 
         </activity>
 

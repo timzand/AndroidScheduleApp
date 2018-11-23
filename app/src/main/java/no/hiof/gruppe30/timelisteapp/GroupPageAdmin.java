@@ -2,20 +2,46 @@ package no.hiof.gruppe30.timelisteapp;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 
-public class GroupPageAdmin extends BaseActivity {
+public class GroupPageAdmin extends AppCompatActivity {
+
+    String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        setContentView(R.layout.group_page_admin);
 
-        //inflate your activity layout here!
-        View contentView = inflater.inflate(R.layout.group_page_admin, null, false);
-        mDrawerLayout.addView(contentView, 0);
+        Button btnTimeplan = (Button) findViewById(R.id.btn_timeplan);
+        Button btnRoller = (Button) findViewById(R.id.btn_roles);
+
+        Bundle bd = getIntent().getExtras();
+        bd.get("title");
+
+        btnTimeplan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), GroupPageTimeplan.class);
+                intent.putExtra("title", title);
+                startActivity(intent);
+            }
+        });
+
+        btnRoller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), GroupPageRoller.class);
+                intent.putExtra("title", title);
+                startActivity(intent);
+            }
+        });
+
 
 
 

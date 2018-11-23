@@ -32,6 +32,7 @@ public class GroupPageActivity extends BaseActivity {
     FirebaseUser user;
     private DatabaseReference database;
     int memberCount;
+    String bTitle;
 
     protected void onCreate(Bundle saved) {
         super.onCreate(saved);
@@ -54,7 +55,7 @@ public class GroupPageActivity extends BaseActivity {
         database = fData.getReference();
         user = fAuth.getCurrentUser();
 
-        String bTitle = "default";
+        bTitle = "default";
         String bDesc = "default";
         Bitmap bImage;
 
@@ -65,7 +66,9 @@ public class GroupPageActivity extends BaseActivity {
         btnAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), GroupPageAdmin.class);
+                intent.putExtra("title", bTitle);
+                startActivity(intent);
             }
         });
 
@@ -88,6 +91,7 @@ public class GroupPageActivity extends BaseActivity {
             if (bd.get("gTitle") != null) {
                 final String gTitle = (String) bd.get("gTitle");
                 title.setText(gTitle);
+                bTitle = gTitle;
 
                 DatabaseReference groupsRef = database.child("groups");
                 DatabaseReference mRef = database.child("members");
