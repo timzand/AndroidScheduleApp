@@ -51,7 +51,7 @@ public class BaseActivity extends AppCompatActivity {
         database = fData.getReference();
         user = fAuth.getCurrentUser();
 
-        selectedSubMenu = -1;
+        selectedSubMenu = -1; //-1
 
         //Legger til toolbaren til activitien
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -75,13 +75,7 @@ public class BaseActivity extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
 
                         Log.v("INFO", ""+selectedSubMenu);
-                        if(selectedSubMenu != -1) {
-                            Intent intent = new Intent(BaseActivity.this, GroupPageActivity.class);
-                            intent.putExtra("gTitle", groups.get(menuItem.getItemId()));
-                            Log.v("INFO", ""+menuItem.getItemId());
-                            startActivity(intent);
-                            return true;
-                        }
+
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
                         switch(menuItem.getItemId()) {
@@ -96,6 +90,7 @@ public class BaseActivity extends AppCompatActivity {
                                 return true;
                             case R.id.nav_joingrp:
                                 //Endre activity til
+
                             case R.id.nav_3:
                                 Intent intent3 = new Intent(BaseActivity.this, LoginActivity.class);
                                 startActivity(intent3);
@@ -104,6 +99,13 @@ public class BaseActivity extends AppCompatActivity {
                                 Intent intent4 = new Intent(BaseActivity.this, User.class);
                                 startActivity(intent4);
                                 return true;
+                        }
+                        if(selectedSubMenu != -1) {
+                            Intent intent = new Intent(BaseActivity.this, GroupPageActivity.class);
+                            intent.putExtra("gTitle", groups.get(menuItem.getItemId()));
+                            Log.v("INFO", ""+menuItem.getItemId());
+                            startActivity(intent);
+                            return true;
                         }
 
                         return true;
