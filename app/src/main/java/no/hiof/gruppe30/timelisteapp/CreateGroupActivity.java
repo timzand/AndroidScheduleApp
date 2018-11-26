@@ -97,14 +97,24 @@ public class CreateGroupActivity extends BaseActivity {
                         }
                         else {
                             Toast.makeText(getApplicationContext(),"Gruppe opprettet",Toast.LENGTH_LONG).show();
+
                             groupRef.child(title).child("description").setValue(description);
                             groupRef.child(title).child("user").setValue(userId);
+                            database.child("roles").child(title).child("members").setValue(true);
+                            database.child("roles").child(title).child("admins").child(userId).setValue(true);
                             database.child("members").child(userId).child(title).setValue(true);
+
                             Intent intent = new Intent(getApplicationContext(), GroupPageActivity.class);
                             intent.putExtra("title", title);
                             intent.putExtra("desc", description);
-                            selectedImage = Bitmap.createScaledBitmap(selectedImage, 360, 150, true);
-                            intent.putExtra("groupImage", selectedImage);
+
+                            if(selectedImage != null) {
+
+
+                                selectedImage = Bitmap.createScaledBitmap(selectedImage, 360, 150, true);
+                                intent.putExtra("groupImage", selectedImage);
+                            }
+
                             startActivity(intent);
                         }
                     }

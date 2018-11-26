@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,8 +22,11 @@ public class GroupPageAdmin extends AppCompatActivity {
         Button btnTimeplan = (Button) findViewById(R.id.btn_timeplan);
         Button btnRoller = (Button) findViewById(R.id.btn_roles);
 
-        Bundle bd = getIntent().getExtras();
-        bd.get("title");
+        Intent intent = getIntent();
+        Bundle bd = intent.getExtras();
+
+        title = (String) bd.get("title");
+        Log.v("INFO", "timeplanadmin: " + title);
 
         btnTimeplan.setOnClickListener(new View.OnClickListener() {
             @Override

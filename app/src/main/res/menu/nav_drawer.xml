@@ -18,10 +18,8 @@
 
             android:title="@string/drawerJoinGruppe" />
         <item
-            android:id="@+id/nav_3"
+            android:id="@+id/nav_logout"
 
-            android:title="@string/drawerDineGrupper" />
-
-
+            android:title="@string/drawerLogout" />
     </group>
 </menu>

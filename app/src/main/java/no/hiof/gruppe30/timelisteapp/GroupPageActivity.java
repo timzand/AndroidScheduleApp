@@ -79,6 +79,29 @@ public class GroupPageActivity extends BaseActivity {
             if (bd.get("title") != null) {
                 bTitle = (String) bd.get("title");
                 title.setText(bTitle);
+                DatabaseReference groupsRef = database.child("groups");
+                groupsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot data: dataSnapshot.getChildren()) {
+                            if(data.getKey().equals(bTitle)) {
+                                String desc = (String) data.child("description").getValue();
+                                description.setText(desc);
+
+                                if(user.getUid().equals((String) data.child("user").getValue())){
+                                    Log.v("INFO", "You are admin of this group!");
+                                    btnAdmin.setVisibility(View.VISIBLE);
+                                    btnInvite.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
             if (bd.get("desc") != null) {
                 bDesc = (String) bd.get("desc");

@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/layout_roller">
 
     <TextView
         android:id="@+id/text_addRole"
@@ -33,4 +34,33 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_addRole"
         />
 
+    <Spinner
+        android:id="@+id/spinner_roles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btn_addRole"
+        android:spinnerMode="dialog"
+        />
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_roles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_roller_members">
+
+        <TextView
+            android:id="@+id/text_ads"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rollenavn: "
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
