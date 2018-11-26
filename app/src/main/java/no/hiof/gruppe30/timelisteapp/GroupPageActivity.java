@@ -1,14 +1,18 @@
 package no.hiof.gruppe30.timelisteapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,8 +35,12 @@ public class GroupPageActivity extends BaseActivity {
     private FirebaseAuth fAuth;
     FirebaseUser user;
     private DatabaseReference database;
+    DatabaseReference userRef;
+    DatabaseReference roleRef;
+
     int memberCount;
     String bTitle;
+    private String m_Text = "";
 
     protected void onCreate(Bundle saved) {
         super.onCreate(saved);
@@ -54,6 +62,8 @@ public class GroupPageActivity extends BaseActivity {
 
         database = fData.getReference();
         user = fAuth.getCurrentUser();
+        userRef = database.child("users");
+        roleRef = database.child("roles");
 
         bTitle = "default";
         String bDesc = "default";
@@ -69,6 +79,59 @@ public class GroupPageActivity extends BaseActivity {
                 Intent intent = new Intent(getApplicationContext(), GroupPageAdmin.class);
                 intent.putExtra("title", bTitle);
                 startActivity(intent);
+            }
+        });
+
+
+        btnInvite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(GroupPageActivity.this);
+                builder.setTitle("E-post på bruker: ");
+
+                // Set up the input
+                final EditText input = new EditText(GroupPageActivity.this);
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                builder.setView(input);
+
+
+                builder.setPositiveButton("Inviter", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final DatabaseReference membersRef = database.child("members");
+                        m_Text = input.getText().toString();
+                        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for(DataSnapshot data: dataSnapshot.getChildren()) {
+                                    Log.v("INFO", "" + DecodeString(data.getKey()).equals(m_Text));
+                                    if(DecodeString(data.getKey()).equals(m_Text)) {
+                                        String userid = data.child("userid").getValue().toString();
+                                        roleRef.child(bTitle).child("MEMBERS").child(userid).setValue(true);
+                                        membersRef.child(userid).child(bTitle).setValue(true);
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+                });
+                builder.setNegativeButton("Ikke inviter", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
             }
         });
 
@@ -165,4 +228,13 @@ public class GroupPageActivity extends BaseActivity {
             }
         }
     }
+
+    public static String EncodeString(String string) {
+        return string.replace(".", ",");
+    }
+
+    public static String DecodeString(String string) {
+        return string.replace(",", ".");
+    }
+
 }
