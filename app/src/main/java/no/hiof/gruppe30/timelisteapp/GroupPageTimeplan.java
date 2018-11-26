@@ -140,7 +140,7 @@ public class GroupPageTimeplan extends AppCompatActivity {
                                 database.child("timeplan").child(title).child(role).child(day).child("fra").setValue(tidFra);
                                 database.child("timeplan").child(title).child(role).child(day).child("til").setValue(tidTil);
                                 database.child("timeplan").child(title).child(role).child(day).child("gjenta").setValue(true);
-                                database.child("timeplan").child(title).child(role).child(day).child(beskrivelse).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).child("beskrivlelse").setValue(beskrivelse);
                                 Log.v("INFO", "6 works" );
 
                             }
@@ -150,7 +150,7 @@ public class GroupPageTimeplan extends AppCompatActivity {
                                 database.child("timeplan").child(title).child(role).child(day).child("fra").setValue(tidFra);
                                 database.child("timeplan").child(title).child(role).child(day).child("til").setValue(tidTil);
                                 database.child("timeplan").child(title).child(role).child(day).child("gjenta").setValue(false);
-                                database.child("timeplan").child(title).child(role).child(day).child(beskrivelse).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).child("beskrivlelse").setValue(beskrivelse);
                             }
 
 
