@@ -56,6 +56,12 @@
 
         </activity>
 
+        <activity
+            android:name=".GroupPageRoller" android:screenOrientation="sensorPortrait"
+            >
+
+        </activity>
+
 
 
 

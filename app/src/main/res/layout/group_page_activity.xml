@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/text_title"
-        android:layout_width="293dp"
-        android:layout_height="65dp"
+        android:layout_width="291dp"
+        android:layout_height="54dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -26,7 +26,7 @@
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintVertical_bias="0.112" />
 
     <ImageView
         android:id="@+id/image"
@@ -133,21 +133,42 @@
 
     <Button
         android:id="@+id/btn_administrate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Administrer Gruppe"
-        app:layout_constraintTop_toBottomOf="@+id/btn_leaveGroup"
+        android:layout_width="109dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttonshape"
         android:gravity="center"
-        android:visibility="gone"/>
+        android:text="admin."
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.029"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.89" />
 
     <Button
         android:id="@+id/btn_addMember"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Inviter "
-        app:layout_constraintTop_toBottomOf="@+id/btn_administrate"
+        android:layout_width="109dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/buttonshape"
         android:gravity="center"
-        android:visibility="gone"/>
+        android:text="Inviter "
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.904" />
 
     <ImageView
         android:id="@+id/imageView8"
