@@ -17,41 +17,41 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity" android:screenOrientation="sensorPortrait">
 
         </activity>
 
-        <activity android:name=".BaseActivity">
+        <activity android:name=".BaseActivity" android:screenOrientation="sensorPortrait">
 
         </activity>
-        <activity android:name=".CreateGroupActivity">
-
-        </activity>
-
-        <activity android:name=".GroupPageActivity">
+        <activity android:name=".CreateGroupActivity" android:screenOrientation="sensorPortrait">
 
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".GroupPageActivity" android:screenOrientation="sensorPortrait">
 
         </activity>
 
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="sensorPortrait">
 
         </activity>
 
-        <activity android:name=".User">
+        <activity android:name=".RegisterActivity" android:screenOrientation="sensorPortrait">
+
+        </activity>
+
+        <activity android:name=".User" android:screenOrientation="sensorPortrait">
 
         </activity>
 
         <activity
-            android:name=".GroupPageAdmin"
+            android:name=".GroupPageAdmin" android:screenOrientation="sensorPortrait"
              >
 
         </activity>
 
         <activity
-            android:name=".GroupPageTimeplan"
+            android:name=".GroupPageTimeplan" android:screenOrientation="sensorPortrait"
             >
 
         </activity>
