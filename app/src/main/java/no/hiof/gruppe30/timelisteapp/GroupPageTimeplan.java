@@ -42,6 +42,7 @@ public class GroupPageTimeplan extends AppCompatActivity {
     private CheckBox repetBox;
     private EditText tidFra1;
     private EditText tidTil1;
+    private EditText bb;
 
     //spinner
     Spinner Sroles;
@@ -86,6 +87,7 @@ public class GroupPageTimeplan extends AppCompatActivity {
         tidFra1 = (EditText) findViewById(R.id.fra);
         tidTil1 = (EditText) findViewById(R.id.til);
         leggtil = (Button) findViewById(R.id.btn_addTimeplan);
+        bb = (EditText) findViewById(R.id.tb);
 
         roleRef = database.child("roles");
         roleRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -121,6 +123,7 @@ public class GroupPageTimeplan extends AppCompatActivity {
 
                         String tidFra = (String) tidFra1.getText().toString();
                         String tidTil = (String) tidTil1.getText().toString();
+                        String beskrivelse = (String) bb.getText().toString();
                         //tid var
 
                         Log.v("INFO", "2 " + role);
@@ -136,14 +139,16 @@ public class GroupPageTimeplan extends AppCompatActivity {
                                 database.child("timeplan").child(title).child(role).child(day).setValue(true);
                                 database.child("timeplan").child(title).child(role).child(day).child(tidFra).setValue(true);
                                 database.child("timeplan").child(title).child(role).child(day).child(tidTil).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).child(beskrivelse).setValue(true);
                                 Log.v("INFO", "6 works" );
 
                             }
                             else{
 
-                                database.child("timeplan").child(title).child(role).child(day).setValue(true);
-                                database.child("timeplan").child(title).child(role).child(day).child(tidFra).setValue(true);
-                                database.child("timeplan").child(title).child(role).child(day).child(tidTil).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).setValue(false);
+                                database.child("timeplan").child(title).child(role).child(day).child(tidFra).setValue(false);
+                                database.child("timeplan").child(title).child(role).child(day).child(tidTil).setValue(false);
+                                database.child("timeplan").child(title).child(role).child(day).child(beskrivelse).setValue(true);
                             }
 
 
