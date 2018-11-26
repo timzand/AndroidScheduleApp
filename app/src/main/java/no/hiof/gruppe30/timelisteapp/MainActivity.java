@@ -61,7 +61,10 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot data: dataSnapshot.getChildren()){
+                        //finn dine roller med ID
+                    String me = user.getUid();
 
+                    database.child("members").child(me);
                 }
             }
 
@@ -76,7 +79,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot data: dataSnapshot.getChildren()){
-
+                        //bruk roller du fant til å finne timeplan
                 }
             }
 
@@ -94,9 +97,7 @@ public class MainActivity extends BaseActivity {
         ArrayList<String> timePlan = new ArrayList<>();
         timePlan.add("Horse");
 
-        String me = user.getUid();
 
-        database.child("members").child(me);
 
 
 
