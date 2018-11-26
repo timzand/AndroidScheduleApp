@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -23,12 +25,19 @@ public class RegisterActivity extends BaseActivity {
     ProgressBar progresss;
     EditText username, password;
     //FireBase
+    private FirebaseDatabase fData;
     private FirebaseAuth fAuth;
+    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        fData = FirebaseDatabase.getInstance();
+
+        database = fData.getReference();
+
         loginn = findViewById(R.id.LoginBtn);
         progresss = findViewById(R.id.progressBar);
         register = findViewById(R.id.LoginBtn);
@@ -58,6 +67,8 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void registerU(final String userN, String passwords) {
+
+
         fAuth.createUserWithEmailAndPassword(userN, passwords).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -65,6 +76,14 @@ public class RegisterActivity extends BaseActivity {
                     // Sign in success, update UI with the signed-in user's information
 
                     FirebaseUser user = fAuth.getCurrentUser();
+                    database = fData.getReference();
+
+                    //Utvid her, med brukernavn, alder? osv...
+                    String email = EncodeString(userN);
+                    database.child("users").child(email).child("userid").setValue(user.getUid());
+                    database.child("users").child(email).child("name").setValue("John Doe");
+
+
 
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
@@ -76,6 +95,14 @@ public class RegisterActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    public static String EncodeString(String string) {
+        return string.replace(".", ",");
+    }
+
+    public static String DecodeString(String string) {
+        return string.replace(",", ".");
     }
 
 

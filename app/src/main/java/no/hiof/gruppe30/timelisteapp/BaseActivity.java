@@ -48,6 +48,7 @@ public class BaseActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fData = FirebaseDatabase.getInstance();
 
+
         database = fData.getReference();
         user = fAuth.getCurrentUser();
 
@@ -73,31 +74,33 @@ public class BaseActivity extends AppCompatActivity {
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
-
                         Log.v("INFO", ""+selectedSubMenu);
-
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
                         switch(menuItem.getItemId()) {
                             case R.id.nav_dashboard:
                                 Intent intent = new Intent(BaseActivity.this, MainActivity.class);
+                                finish();
                                 startActivity(intent);
                                 return true;
                             case R.id.nav_creategrp:
                                 //Endrer activity til opprett gruppe
                                 Intent intent2 = new Intent(BaseActivity.this, CreateGroupActivity.class);
+                                finish();
                                 startActivity(intent2);
                                 return true;
                             case R.id.nav_joingrp:
                                 //Endre activity til
-
-                            case R.id.nav_3:
-                                Intent intent3 = new Intent(BaseActivity.this, LoginActivity.class);
-                                startActivity(intent3);
-                                return true;
                             case R.id.nav_user:
                                 Intent intent4 = new Intent(BaseActivity.this, User.class);
+                                finish();
                                 startActivity(intent4);
+                                return true;
+                            case R.id.nav_logout:
+                                fAuth.signOut();
+                                Intent intent5 = new Intent(BaseActivity.this, LoginActivity.class);
+                                finish();
+                                startActivity(intent5);
                                 return true;
                         }
                         if(selectedSubMenu != -1) {
@@ -107,7 +110,6 @@ public class BaseActivity extends AppCompatActivity {
                             startActivity(intent);
                             return true;
                         }
-
                         return true;
                     }
                 });
@@ -116,6 +118,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         selectedSubMenu = -1;
+
         super.onResume();
     }
 
