@@ -137,8 +137,9 @@ public class GroupPageTimeplan extends AppCompatActivity {
 
                             if(repetBox.isChecked()){
                                 database.child("timeplan").child(title).child(role).child(day).setValue(true);
-                                database.child("timeplan").child(title).child(role).child(day).child(tidFra).setValue(true);
-                                database.child("timeplan").child(title).child(role).child(day).child(tidTil).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).child("fra").setValue(tidFra);
+                                database.child("timeplan").child(title).child(role).child(day).child("til").setValue(tidTil);
+                                database.child("timeplan").child(title).child(role).child(day).child("gjenta").setValue(true);
                                 database.child("timeplan").child(title).child(role).child(day).child(beskrivelse).setValue(true);
                                 Log.v("INFO", "6 works" );
 
@@ -146,8 +147,9 @@ public class GroupPageTimeplan extends AppCompatActivity {
                             else{
 
                                 database.child("timeplan").child(title).child(role).child(day).setValue(false);
-                                database.child("timeplan").child(title).child(role).child(day).child(tidFra).setValue(false);
-                                database.child("timeplan").child(title).child(role).child(day).child(tidTil).setValue(false);
+                                database.child("timeplan").child(title).child(role).child(day).child("fra").setValue(tidFra);
+                                database.child("timeplan").child(title).child(role).child(day).child("til").setValue(tidTil);
+                                database.child("timeplan").child(title).child(role).child(day).child("gjenta").setValue(false);
                                 database.child("timeplan").child(title).child(role).child(day).child(beskrivelse).setValue(true);
                             }
 
