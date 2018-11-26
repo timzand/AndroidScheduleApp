@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -64,6 +66,12 @@ public class User extends BaseActivity {
         cEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                String pass;
+                pass = "2";
+                AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(),"123456");
+                user.reauthenticate(credential);
                 user.updateEmail(email.getText().toString());
             }
         });
@@ -71,6 +79,8 @@ public class User extends BaseActivity {
         cPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AuthCredential credential = EmailAuthProvider.getCredential("","");
+                user.reauthenticate(credential);
                 user.updatePhoneNumber((PhoneAuthCredential) phone.getText());
             }
         });

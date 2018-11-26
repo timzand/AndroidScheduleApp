@@ -3,6 +3,11 @@
     <string name="drawerDashboard">Dashboard</string>
     <string name="drawerOpprettGruppe">Opprett Gruppe</string>
     <string name="drawerJoinGruppe">Bli med Gruppe</string>
+
     <string name="drawerLogout">Logg Ut</string>
     <string name="drawer4">Din Bruker</string>
+
+    <string name="drawerDineGrupper">Login</string>
+    <string name="drawerUser">Din Bruker</string>
+
 </resources>

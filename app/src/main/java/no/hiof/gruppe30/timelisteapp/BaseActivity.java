@@ -52,7 +52,7 @@ public class BaseActivity extends AppCompatActivity {
         database = fData.getReference();
         user = fAuth.getCurrentUser();
 
-        selectedSubMenu = -1;
+        selectedSubMenu = -1; //-1
 
         //Legger til toolbaren til activitien
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -74,7 +74,6 @@ public class BaseActivity extends AppCompatActivity {
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
-
                         Log.v("INFO", ""+selectedSubMenu);
                         // Add code here to update the UI based on the item selected
                         // For example, swap UI fragments here
@@ -104,10 +103,13 @@ public class BaseActivity extends AppCompatActivity {
                                 startActivity(intent5);
                                 return true;
                         }
-                        Intent intent = new Intent(BaseActivity.this, GroupPageActivity.class);
-                        intent.putExtra("gTitle", groups.get(menuItem.getItemId()));
-                        Log.v("INFO", ""+menuItem.getItemId());
-                        startActivity(intent);
+                        if(selectedSubMenu != -1) {
+                            Intent intent = new Intent(BaseActivity.this, GroupPageActivity.class);
+                            intent.putExtra("gTitle", groups.get(menuItem.getItemId()));
+                            Log.v("INFO", ""+menuItem.getItemId());
+                            startActivity(intent);
+                            return true;
+                        }
                         return true;
                     }
                 });

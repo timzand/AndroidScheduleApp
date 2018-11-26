@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
 
         user = fAuth.getCurrentUser();
 
-        tt.setText("Welcome " + user.getEmail());
+        tt.setText("Welcome " + user.getEmail() + "  " + user.getDisplayName());
 
     }
 }
