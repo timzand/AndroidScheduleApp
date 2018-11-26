@@ -133,17 +133,17 @@ public class GroupPageTimeplan extends AppCompatActivity {
                             Log.v("INFO", "5 " + tidTil);
 
                             if(repetBox.isChecked()){
-                                database.child("roles").child(title).child(role).child(day).setValue(true);
-                                database.child("roles").child(title).child(role).child(day).child(tidFra).setValue(true);
-                                database.child("roles").child(title).child(role).child(day).child(tidTil).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).child(tidFra).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).child(tidTil).setValue(true);
                                 Log.v("INFO", "6 works" );
 
                             }
                             else{
 
-                                database.child("roles").child(title).child(role).child(day).setValue(true);
-                                database.child("roles").child(title).child(role).child(day).child(tidFra).setValue(true);
-                                database.child("roles").child(title).child(role).child(day).child(tidTil).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).child(tidFra).setValue(true);
+                                database.child("timeplan").child(title).child(role).child(day).child(tidTil).setValue(true);
                             }
 
 

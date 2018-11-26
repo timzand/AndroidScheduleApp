@@ -77,10 +77,7 @@ public class MainActivity extends BaseActivity {
 
         database.child("members").child(me);
 
-        database.child("roles").child(title).child(role).child(day).setValue(true);
-        database.child("roles").child(title).child(role).child(day).child(tidFra).setValue(true);
-        database.child("roles").child(title).child(role).child(day).child(tidTil).setValue(true);
-        for ()
+
 
 
 
