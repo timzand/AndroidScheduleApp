@@ -5,4 +5,7 @@
     <string name="drawerJoinGruppe">Bli med Gruppe</string>
     <string name="drawerDineGrupper">Login</string>
     <string name="drawerUser">Din Bruker</string>
+    <string name="dialog_message">Tast inn passord</string>
+    <string name="ok">ok</string>
+    <string name="av">avbryt</string>
 </resources>

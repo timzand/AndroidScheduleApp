@@ -1,7 +1,12 @@
 package no.hiof.gruppe30.timelisteapp;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -68,12 +73,31 @@ public class User extends BaseActivity {
             public void onClick(View view) {
 
 
+
+                /* Dialouge
+                AlertDialog.Builder builder = new AlertDialog.Builder(User.this);
+
+                builder.setMessage(R.string.dialog_message)
+                        .setTitle(R.string.ok);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                */
+
+                //fragment
+                RetypePassword Rt = new RetypePassword();
+
+
+                Rt.show(getFragmentManager() , "pass");
+
                 String pass;
                 pass = "2";
                 AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(),"123456");
                 user.reauthenticate(credential);
                 user.updateEmail(email.getText().toString());
             }
+
+
         });
 
         cPhone.setOnClickListener(new View.OnClickListener() {
