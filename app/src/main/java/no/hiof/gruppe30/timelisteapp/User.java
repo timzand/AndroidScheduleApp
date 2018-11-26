@@ -35,14 +35,14 @@ public class User extends BaseActivity {
          user = fAuth.getCurrentUser();
 
         //UI
-        name = findViewById(R.id.name);
+        //name = findViewById(R.id.name);
         pass = findViewById(R.id.pass);
         email = findViewById(R.id.email);
-        phone = findViewById(R.id.phone);
-        cName = findViewById(R.id.cN);
+        //phone = findViewById(R.id.phone);
+        //cName = findViewById(R.id.cN);
         cPass = findViewById(R.id.cP);
         cEmail = findViewById(R.id.cE);
-        cPhone = findViewById(R.id.cNumb);
+        //cPhone = findViewById(R.id.cNumb);
 
         //Inf
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -50,10 +50,10 @@ public class User extends BaseActivity {
         mDrawerLayout.addView(contentView, 0);
 
         //set info
-        name.setText((CharSequence) user.getDisplayName());
+        //name.setText((CharSequence) user.getDisplayName());
         pass.setText("*****");
         email.setText(user.getEmail());
-        phone.setText(user.getPhoneNumber());
+        //phone.setText(user.getPhoneNumber());
 
         cPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,14 +76,14 @@ public class User extends BaseActivity {
             }
         });
 
-        cPhone.setOnClickListener(new View.OnClickListener() {
+        /*cPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AuthCredential credential = EmailAuthProvider.getCredential("","");
                 user.reauthenticate(credential);
                 user.updatePhoneNumber((PhoneAuthCredential) phone.getText());
             }
-        });
+        });*/
 
     }
 
