@@ -33,6 +33,7 @@ public class MainActivity extends BaseActivity {
     private FirebaseDatabase fData;
     private DatabaseReference database;
     private DatabaseReference members;
+    private DatabaseReference timeplan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class MainActivity extends BaseActivity {
         //list.setHasFixedSize(true);
 
         members = database.child("roles");
+        timeplan = database.child("timeplan");
 
         members.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -68,6 +70,25 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+
+
+        timeplan.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data: dataSnapshot.getChildren()){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
 
         Log.v("INFO", "1 t" );
         ArrayList<String> timePlan = new ArrayList<>();
