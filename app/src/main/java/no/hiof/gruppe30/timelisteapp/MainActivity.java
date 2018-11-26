@@ -24,6 +24,24 @@ import java.util.ArrayList;
 //suport https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
 public class MainActivity extends BaseActivity {
 
+    public class calender {
+        String beskrivelse;
+        String dag;
+        String fra;
+        String til;
+        Boolean repeat;
+        calender() {
+
+        }
+        calender(String d, String f, String t, String b, Boolean r) {
+            this.dag = d;
+            this.fra = f;
+            this.til = t;
+            this.repeat = r;
+            this.beskrivelse = b;
+        }
+    }
+
     private FirebaseAuth fAuth;
     FirebaseUser user;
     TextView tt;
@@ -32,8 +50,13 @@ public class MainActivity extends BaseActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private FirebaseDatabase fData;
     private DatabaseReference database;
-    private DatabaseReference members;
-    private DatabaseReference timeplan;
+    private DatabaseReference rolesRef;
+    private DatabaseReference timeplanRef;
+    ArrayList<String> roles;
+    ArrayList<String> groups;
+    ArrayList<calender> calenders;
+    String ghettoKalender;
+    TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +68,6 @@ public class MainActivity extends BaseActivity {
         mDrawerLayout.addView(contentView, 0);
 
         tt = findViewById(R.id.t);
-        list = findViewById(R.id.recyclerView);
         fAuth = FirebaseAuth.getInstance();
         fData = FirebaseDatabase.getInstance();
         user = fAuth.getCurrentUser();
@@ -54,18 +76,35 @@ public class MainActivity extends BaseActivity {
 
         //list.setHasFixedSize(true);
 
-        members = database.child("roles");
-        timeplan = database.child("timeplan");
+        fData = FirebaseDatabase.getInstance();
 
-        members.addListenerForSingleValueEvent(new ValueEventListener() {
+        database = fData.getReference();
+        timeplanRef = database.child("timeplan");
+        rolesRef = database.child("roles");
+
+        roles = new ArrayList<String>();
+        groups = new ArrayList<String>();
+        calenders = new ArrayList<calender>();
+        ghettoKalender = "";
+        text = findViewById(R.id.kalender);
+
+        rolesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data: dataSnapshot.getChildren()){
-                        //finn dine roller med ID
-                    String me = user.getUid();
-
-                    database.child("members").child(me);
+                //groups
+                for(DataSnapshot data: dataSnapshot.getChildren()) {
+                    //roles in groups
+                    for(DataSnapshot dataRoles: data.getChildren()) {
+                        //userids in roles in groups
+                        for(DataSnapshot userIds: dataRoles.getChildren()){
+                            if(userIds.getKey().equalsIgnoreCase(user.getUid())) {
+                                roles.add(dataRoles.getKey());
+                                groups.add(data.getKey());
+                            }
+                        }
+                    }
                 }
+                loadSchedules();
             }
 
             @Override
@@ -75,12 +114,33 @@ public class MainActivity extends BaseActivity {
         });
 
 
-        timeplan.addListenerForSingleValueEvent(new ValueEventListener() {
+
+    }
+
+    private void loadSchedules() {
+        for(String s: groups) {
+            Log.v("INFO", "123"+ s);
+            Log.v("INFO", "123"+ roles.get(groups.indexOf(s)));
+        }
+
+        timeplanRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data: dataSnapshot.getChildren()){
-                        //bruk roller du fant til å finne timeplan
+                for(String group: groups) {
+                    if(dataSnapshot.child(group).exists()) {
+                        for(DataSnapshot data: dataSnapshot.child(group).getChildren()) {
+                            if(data.getKey().equalsIgnoreCase(roles.get(groups.indexOf(group)))) {
+                                Log.v("INFO", "Fant timeliste" + data);
+                                for(DataSnapshot days: data.getChildren()) {
+                                    calenders.add(new calender((String) days.getKey(), (String) days.child("fra").getValue(), (String) days.child("til").getValue(), (String) days.child("beskrivlelse").getValue() ,(Boolean) days.child("gjenta").getValue()));
+                                }
+                            }
+                        }
+                    }
+
                 }
+                loadCalender();
+
             }
 
             @Override
@@ -88,31 +148,24 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+    }
+
+    void loadCalender() {
+        for(calender c: calenders) {
+            ghettoKalender+= c.dag + "\n";
+            ghettoKalender+= c.fra + " - " + c.til + "\n" + c.beskrivelse + "\n";
 
 
 
+            if(c.repeat == false) {
+                calenders.remove(c);
+            }
+            else {
+                ghettoKalender+="Gjentar seg hver uke!" + "\n\n";
+            }
+            Log.v("INFO", ghettoKalender);
 
-
-        Log.v("INFO", "1 t" );
-        ArrayList<String> timePlan = new ArrayList<>();
-        timePlan.add("Horse");
-
-
-
-
-
-
-
-        Log.v("INFO", "2 t" );
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        list.setLayoutManager(mLayoutManager);
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(this, timePlan);
-        list.setAdapter(mAdapter);
-        Log.v("INFO", "3 t" );
-
-
-
+        }
+        text.setText(ghettoKalender);
     }
 }
